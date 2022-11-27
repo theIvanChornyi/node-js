@@ -22,20 +22,32 @@ async function listContacts() {
 }
 
 async function getContactById(contactId) {
-  const contacts = await listContacts();
-  return contacts.find(({ id }) => id === contactId);
+  try {
+    const contacts = await listContacts();
+    return contacts.find(({ id }) => id === contactId);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function removeContact(contactId) {
-  const contacts = await listContacts();
-  const newContactsList = contacts.filter(({ id }) => id !== contactId);
-  writeNewContacts(newContactsList);
+  try {
+    const contacts = await listContacts();
+    const newContactsList = contacts.filter(({ id }) => id !== contactId);
+    writeNewContacts(newContactsList);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function addContact(name, email, phone) {
-  const contacts = await listContacts();
-  const newContactsList = [...contacts, { id: nanoid(), name, email, phone }];
-  writeNewContacts(newContactsList);
+  try {
+    const contacts = await listContacts();
+    const newContactsList = [...contacts, { id: nanoid(), name, email, phone }];
+    writeNewContacts(newContactsList);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 module.exports = { listContacts, getContactById, removeContact, addContact };
